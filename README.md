@@ -35,10 +35,3 @@ Or run the CLI:
 ```bash
 uv run python -m csv_profiler.cli profile data/sample.csv --out-dir outputs
 ```
-
-Then commit:
-
-```bash
-git add README.md
-git commit -m "Document setup and usage"
-```
