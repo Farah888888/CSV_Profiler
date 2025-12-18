@@ -3,27 +3,27 @@ from pathlib import Path
 
 
 def basic_profile(rows: list)->dict:
-    n_rows, columns = len(rows), len(rows[0].keys())
+    n_rows, n_cols = len(rows), len(rows[0].keys())
     col_profiles = []
     #source = Path(path)
     if not rows : 
         return {"rows": 0, "columns":{}, "notes":["Empty"]}
 
-    columns = list(rows[0].keys())
-    missing = {c: 0 for c in columns}
-    non_empty = {c: 0 for c in columns}
+    n_cols = list(rows[0].keys())
+    missing = {c: 0 for c in n_cols}
+    non_empty = {c: 0 for c in n_cols}
 
     report = {
         "summary": {
             "rows": len(rows), 
-            "columns": len(columns),
-            "columns_names": columns,
+            "columns": len(n_cols),
+            "columns_names": n_cols,
         },
         "columns": {},
     }
 
-    for col in columns: 
-        values = column_values(rows, columns)
+    for col in n_cols: 
+        values = [r.get(col, "") for r in rows]
         usable = [v for v in values if not is_missing(v)]
         missing = len(values) - len(usable)
         inferred = infer_type(values)
@@ -45,7 +45,7 @@ def basic_profile(rows: list)->dict:
             
             col_profiles.append(profile)
 
-        return {"n_rows": n_rows, "n_cols": len(columns), "columns": col_profiles}
+        return {"n_rows": n_rows, "n_cols": len(n_cols), "columns": col_profiles}
         
 #---------------------------------------------------
 
@@ -75,11 +75,6 @@ def infer_type(values: list[str])->str:
         if try_float(v) is None: 
             return "text"
     return "number"
-
-#--------------------------------------------------------
-
-def column_values(rows: list, col:str)-> list:
-    return [row.get(col,"") for row in rows]
 
 #-------------------------------------------------------
 

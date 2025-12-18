@@ -17,6 +17,8 @@ st.sidebar.header("Inputs")
 rows = None
 report = st.session_state.get("report")
 
+ #-------------------------------------------------------------------
+
 uploaded = st.file_uploader("Upload a CSV", type=["csv"])
 show_preview = st.sidebar.checkbox("Show Preview", value=True)
 
@@ -38,32 +40,32 @@ if uploaded is not None:
 else: 
     st.info("Upload a CSV to Start")
 
+
 if rows is not None: 
     if len(rows) > 0: 
         if st.button("Generate Report"): 
             st.session_state["report"] = basic_profile(rows)
 
 
-report = st.session_state.get("report")
 if report is not None: 
     cols = st.columns(2)
     cols[0].metric("Rows", report["n_rows"])
     cols[1].metric("Columns", report["n_cols"])
 
 
-if report is None: 
+if report is not None: 
     st.subheader("Columns")
     st.write(report["columns"])
     with st.expander("Markdown preview", expanded=False): 
         st.markdown(write_markdown(report))
-else:
-    st.error("Report is None — basic_profile() did not return a report.")
 
-if report is None: 
+
+if report is not None: 
     report_name = st.sidebar.text_input("Report name", value="report")
 
     json_file = report_name + ".json"
-    json_text = write_markdown(report)
+    json_text = json.dumps(report, indent=2, ensure_ascii=False)
+
     md_file = report_name + ".md"
     md_text = write_markdown(report)
 
@@ -77,3 +79,5 @@ if report is None:
         (out_dir/ json_file).write_text(json_text, encoding="utf-8")
         (out_dir / md_file).write_text(md_text, encoding="utf-8")
         st.success("Saved outputs/" + json_file + "and outputs/" + md_file)
+
+    
