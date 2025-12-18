@@ -1,4 +1,4 @@
-```markdown
+
 ## Setup
 uv venv -p 3.11
 uv pip install -r requirements.txt
@@ -14,11 +14,3 @@ uv run python -m csv_profiler.cli profile data/sample.csv --out-dir outputs
 #   Mac/Linux: export PYTHONPATH=src
 #   Windows:   $env:PYTHONPATH="src"
 uv run streamlit run app.py
-```
-
-Commit:
-
-```bash
-git add README.md
-git commit -m "Finalize README runbook"
-```
