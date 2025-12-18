@@ -71,7 +71,7 @@ if report is not None:
 
     c1, c2 = st.columns(2)
     c1.download_button("Download JSON", data= json_text, file_name= json_file)
-    c2.download_button("DOwnload Markdown", data=md_text, file_name = md_file)
+    c2.download_button("Download Markdown", data=md_text, file_name = md_file)
 
     if st.button("Save to outputs/"):
         out_dir = Path('outputs')
