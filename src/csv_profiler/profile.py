@@ -47,8 +47,6 @@ def basic_profile(rows: list)->dict:
 
         return {"n_rows": n_rows, "n_cols": len(columns), "columns": col_profiles}
         
-
-
 #---------------------------------------------------
 
 def is_missing(value: str)-> bool:
@@ -57,7 +55,6 @@ def is_missing(value: str)-> bool:
     cleaned =value.strip().casefold()
     return cleaned in {"", "na", "n/a", "null", "none", "nan"}
 
-
 #-----------------------------------------------------
 
 def try_float(value: str)->float:
@@ -65,7 +62,6 @@ def try_float(value: str)->float:
         return float(value)
     except ValueError:
         return None
-
 
 #------------------------------------------------------
 
@@ -113,7 +109,6 @@ def numeric_stats(values: list)-> dict:
         "max_number" : max_number,
         "mean": mean
     }
-
 
 #-----------------------------------------------------------------
 
